@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 .idea/*
+.idea/workspace.xml
 db*
 LICENSE
 .m.swp
