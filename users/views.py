@@ -15,3 +15,9 @@ def say(request):
     url = reverse('index')
     print(url)
     return HttpResponse('say')
+
+
+def weather(request, city, year):
+    print(city)
+    print(year)
+    return HttpResponse('OK')
