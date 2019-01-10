@@ -1,6 +1,6 @@
 import json
-
-from django.http import HttpResponse
+from django.http import JsonResponse
+from django.http import HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -39,3 +39,11 @@ def demo_view(request):
     response.status_code = 400
     response['xixi'] = 'gugu'
     return response
+
+
+# def first(request):
+#     return HttpResponsePermanentRedirect(demo_view)
+
+
+def demo_json(request):
+    return JsonResponse({'city': 'beijing'})

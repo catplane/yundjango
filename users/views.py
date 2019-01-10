@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.http import HttpResponse
@@ -14,7 +14,7 @@ def say(request):
     # 对于指明namespace的，reverse(命名空间namespace: 路由name)
     url = reverse('index')
     print(url)
-    return HttpResponse('say')
+    return redirect(url)
 
 
 def weather(request, city, year):
