@@ -47,3 +47,14 @@ def demo_view(request):
 
 def demo_json(request):
     return JsonResponse({'city': 'beijing'})
+
+
+def cookie_set(request):
+    response = HttpResponse('ok')
+    response.set_cookie('xixi', 'guguji', max_age=60 * 60)
+    cookie1 = request.COOKIES.get('xixi')
+    print(cookie1)
+    return response
+
+
+
