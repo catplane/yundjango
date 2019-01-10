@@ -32,3 +32,10 @@ def get_body_json(request):
     req_data = json.loads(json_str)
     print(req_data)
     return HttpResponse('OK')
+
+
+def demo_view(request):
+    response = HttpResponse('python')
+    response.status_code = 400
+    response['xixi'] = 'gugu'
+    return response
