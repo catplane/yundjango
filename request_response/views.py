@@ -57,4 +57,15 @@ def cookie_set(request):
     return response
 
 
+def session_set(request):
+    request.session['age'] = 'chaoge'
+    # 读取
+    # 当我们进行设置session时会生成一个sessionid 然后通过response对象设置到cookie并保存到浏览器上
+    # 当我们要读取session需要通过请求对象带过来的cookie中的sessionid才能取到这条session记录,再通过age键取到对应的value
+    # print(request.session['age'])
+    return HttpResponse('session_demo')
+
+
+
+
 

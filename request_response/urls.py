@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^demo_view$', views.demo_view),
     url(r'^demo_json$',views.demo_json ),
     url(r'^cookie_set$', views.cookie_set),
+    url(r'^session_set$', views.session_set),
 ]
