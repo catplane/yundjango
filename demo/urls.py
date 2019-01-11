@@ -25,5 +25,6 @@ urlpatterns = [
     #url(r'^users/', include('users.urls')),
     url(r'^', include('users.urls')),
     url(r'^', include('request_response.urls')),
+    url(r'^', include('register.urls')),
 
 ]
