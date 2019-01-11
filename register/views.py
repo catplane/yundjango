@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.views.generic import View
 
 
+
 class RegisterView(View):
     """
     类视图：处理注册
