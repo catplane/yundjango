@@ -53,6 +53,8 @@ MIDDLEWARE = [
 
 
     'middleware.my_middleware', #注册自定义的中间件
+    'middleware.my_middleware2'
+
 ]
 
 ROOT_URLCONF = 'demo.urls'

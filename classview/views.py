@@ -6,6 +6,7 @@ from django.views import View
 
 
 def my_decorator(func):
+    print('init')
     def wrapper(request, *args, **kwargs):
         print('自定义装饰器被调用了')
         print('请求路径%s' % request.path)
