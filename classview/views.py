@@ -29,3 +29,27 @@ class DemoView(View):
     def put(self, request):
         print('put方法')
         return HttpResponse('ok')
+
+
+class ListModelMixin(object):
+
+    def list(self, request, *args, **kwargs):
+        return HttpResponse('ok1')
+
+
+class CreateModelMixin(object):
+    def create(self, request, *args, **kwargs):
+        return HttpResponse('ok2')
+
+
+class BooksView(CreateModelMixin, ListModelMixin, View):
+    """
+    同时继承两个扩展类，复用list和create方法
+    """
+    def get(self, request):
+        return self.list(request)
+
+    def post(self, request):
+        return self.create(request)
+
+
