@@ -27,5 +27,6 @@ urlpatterns = [
     url(r'^', include('request_response.urls')),
     url(r'^', include('register.urls')),
     url(r'^', include('classview.urls')),
+    url(r'^', include('booktest.urls')),
 
 ]

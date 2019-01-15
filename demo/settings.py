@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'request_response.apps.RequestResponseConfig',
     'booktest.apps.BooktestConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
