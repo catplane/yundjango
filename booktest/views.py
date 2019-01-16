@@ -6,5 +6,3 @@ class BookInfoViewSet(ModelViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
 
-
-
