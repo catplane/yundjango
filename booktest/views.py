@@ -1,24 +1,44 @@
-from rest_framework import status
+from rest_framework import status, mixins
 from rest_framework.generics import GenericAPIView, ListAPIView
-from rest_framework.viewsets import ModelViewSet, ViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from .serializers import BookInfoSerializer
 from .models import BookInfo
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.decorators import action
 
 
-class BookInfoViewSet(ViewSet):
-    def list(self,request):
-        books = BookInfo.objects.all()
-        serializer = BookInfoSerializer(books, many=True)
+class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    queryset = BookInfo.objects.all()
+    serializer_class = BookInfoSerializer
+    def latest(self, request):
+        book = BookInfo.objects.latest('id')
+        serializer = self.get_serializer(book)
         return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        try:
-            books = BookInfo.objects.get(id=pk)
-        except BookInfo.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = BookInfoSerializer(books)
+    def read(self, request, pk):
+        book = self.get_object()
+        book.bread = request.data.get('bread')
+        book.save()
+        serializer = self.get_serializer(book)
         return Response(serializer.data)
+
+
+
+
+
+# class BookInfoViewSet(ViewSet):
+#     def list(self,request):
+#         books = BookInfo.objects.all()
+#         serializer = BookInfoSerializer(books, many=True)
+#         return Response(serializer.data)
+#
+#     def retrieve(self, request, pk=None):
+#         try:
+#             books = BookInfo.objects.get(id=pk)
+#         except BookInfo.DoesNotExist:
+#             return Response(status=status.HTTP_404_NOT_FOUND)
+#         serializer = BookInfoSerializer(books)
+#         return Response(serializer.data)
 
 
 # class BookInfoViewSet(ModelViewSet):

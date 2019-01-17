@@ -8,8 +8,13 @@ urlpatterns = [
     # url(r'^books/(?P<pk>\d+)/$', views.BookAPIView.as_view())
     # url(r'^books/$', views.BookListView.as_view()),
     # url(r'^books/(?P<pk>\d+)/$', views.BookDetailView.as_view()),
+    # url(r'^books/$', views.BookInfoViewSet.as_view({'get': 'list'})),
+    # url(r'^books/(?P<pk>\d+)/$', views.BookInfoViewSet.as_view({'get': 'retrieve'})),
     url(r'^books/$', views.BookInfoViewSet.as_view({'get': 'list'})),
+    url(r'^books/latest/$', views.BookInfoViewSet.as_view({'get': 'latest'})),
     url(r'^books/(?P<pk>\d+)/$', views.BookInfoViewSet.as_view({'get': 'retrieve'})),
+    url(r'^books/(?P<pk>\d+)/read/$', views.BookInfoViewSet.as_view({'put': 'read'})),
+
 ]
 
 # router = DefaultRouter()
