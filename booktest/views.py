@@ -1,15 +1,26 @@
 from rest_framework import status, mixins
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework.throttling import UserRateThrottle
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from .serializers import BookInfoSerializer
 from .models import BookInfo
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
 from rest_framework.decorators import action
 
+# class MyPermission(BasePermission):
+#     def has_object_permission(self, request, view, obj):
+#         """控制对obj对象的访问权限，此案例决绝所有对对象的访问"""
+#         return False
+
 
 class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
+    # authentication_classes = [SessionAuthentication]
+    # permission_classes = [IsAuthenticated]
+    # throttle_classes = (UserRateThrottle,)
 
     @action(methods=['get'], detail=False)
     def latest(self, request):
