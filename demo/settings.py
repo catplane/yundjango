@@ -154,5 +154,12 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (  # 默认响应渲染类
         'rest_framework.renderers.JSONRenderer',  # json渲染器
         'rest_framework.renderers.BrowsableAPIRenderer',  # 浏览API渲染器
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',   # 基本认证
+        'rest_framework.authentication.SessionAuthentication',  # session认证
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     )
 }
