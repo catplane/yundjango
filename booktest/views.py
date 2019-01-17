@@ -3,12 +3,13 @@ from rest_framework import status, mixins
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.throttling import UserRateThrottle
 from rest_framework.viewsets import ModelViewSet, ViewSet, GenericViewSet
 from .serializers import BookInfoSerializer
 from .models import BookInfo
-from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, CreateModelMixin, DestroyModelMixin
 from rest_framework.decorators import action
 
 # class MyPermission(BasePermission):
@@ -16,13 +17,21 @@ from rest_framework.decorators import action
 #         """控制对obj对象的访问权限，此案例决绝所有对对象的访问"""
 #         return False
 
+class LargeResultsSetPagination(PageNumberPagination):
+    page_size = 3
+    # page_size_query_param = 'page_size'# 前端发送的每页数目关键字名，默认为None
+    max_page_size = 10000
 
-class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
+
+
+class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet, CreateModelMixin, DestroyModelMixin):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
     filter_fields = ('btitle', 'bread')
     filter_backends = [OrderingFilter]
     ordering_fields = ('id', 'bread', 'bpub_date')
+    # pagination_class = LargeResultsSetPagination
+    pagination_class = LimitOffsetPagination
     # authentication_classes = [SessionAuthentication]
     # permission_classes = [IsAuthenticated]
     # throttle_classes = (UserRateThrottle,)
@@ -40,6 +49,12 @@ class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
         book.save()
         serializer = self.get_serializer(book)
         return Response(serializer.data)
+
+    # @action(methods=['delete'], detail=True)
+    # def cancle(self, request, pk):
+    #     book = self.get_object()
+    #     book.delete()
+    #     return Response('delete ok')
 
 
 
