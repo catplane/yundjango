@@ -18,6 +18,7 @@ from rest_framework.decorators import action
 class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
+    filter_fields = ('btitle', 'bread')
     # authentication_classes = [SessionAuthentication]
     # permission_classes = [IsAuthenticated]
     # throttle_classes = (UserRateThrottle,)
