@@ -1,8 +1,25 @@
+from rest_framework import status
 from rest_framework.generics import GenericAPIView, ListAPIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 from .serializers import BookInfoSerializer
 from .models import BookInfo
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin
+
+
+class BookInfoViewSet(ViewSet):
+    def list(self,request):
+        books = BookInfo.objects.all()
+        serializer = BookInfoSerializer(books, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        try:
+            books = BookInfo.objects.get(id=pk)
+        except BookInfo.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = BookInfoSerializer(books)
+        return Response(serializer.data)
+
 
 # class BookInfoViewSet(ModelViewSet):
 #     queryset = BookInfo.objects.all()
@@ -52,9 +69,9 @@ from rest_framework.response import Response
 #     def get(self, request, pk):
 #         return self.retrieve(request)
 
-class BookListView(ListAPIView):
-    queryset = BookInfo.objects.all()
-    serializer_class = BookInfoSerializer
+# class BookListView(ListAPIView):
+#     queryset = BookInfo.objects.all()
+#     serializer_class = BookInfoSerializer
 
 
 
