@@ -1,5 +1,7 @@
+
 from rest_framework import status, mixins
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.filters import OrderingFilter
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.permissions import BasePermission, IsAuthenticated
 from rest_framework.throttling import UserRateThrottle
@@ -19,6 +21,8 @@ class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
     filter_fields = ('btitle', 'bread')
+    filter_backends = [OrderingFilter]
+    ordering_fields = ('id', 'bread', 'bpub_date')
     # authentication_classes = [SessionAuthentication]
     # permission_classes = [IsAuthenticated]
     # throttle_classes = (UserRateThrottle,)
