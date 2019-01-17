@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework.documentation import include_docs_urls
 
 import users
 from users.views import index
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^', include('register.urls')),
     url(r'^', include('classview.urls')),
     url(r'^', include('booktest.urls')),
+    url(r'^docs/', include_docs_urls(title='My API title')),
 
 ]

@@ -25,6 +25,19 @@ class LargeResultsSetPagination(PageNumberPagination):
 
 
 class BookInfoViewSet(ListModelMixin, RetrieveModelMixin, GenericViewSet, CreateModelMixin, DestroyModelMixin):
+    """
+     list:
+     返回图书列表数据
+
+     retrieve:
+     返回图书详情数据
+
+     latest:
+     返回最新的图书数据
+
+     read:
+     修改图书的阅读量
+     """
     queryset = BookInfo.objects.all()
     serializer_class = BookInfoSerializer
     filter_fields = ('btitle', 'bread')
